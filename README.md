@@ -1,4 +1,6 @@
-![image.png](image.png)
+<p align="center">
+  <img src="image.png" alt="Healthy Eyes" width="300">
+</p>
 ___
 # APLIKACJA HEALTHY EYES
 Celem stworzenia aplikacji mobilnej na system operacyjny typu Android "Healthy Eyes", jest wspomaganie ludzi w kontroli stanu ich oczu, poprzez wykonywanie podstawowych testów tj.: test Snellena, Ishihary czy test Amslera służące do wykrywania  wad wzroku oraz chorób – jaskry i daltonizmu.
