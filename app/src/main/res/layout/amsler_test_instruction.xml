@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout"
+    tools:context=".app.amslerTest.AmslerTestInstruction">
+
+    <TextView
+        android:id="@+id/AmslerTestName"
+        android:layout_width="307dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="70dp"
+        android:text="TEST POLA WIDZENIA - TEST AMSLERA"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textColorLink="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.413"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.318" />
+
+    <Button
+        android:id="@+id/backIntoMainViewApp"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="POWRÓT"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.90999997" />
+
+    <Button
+        android:id="@+id/startAmslerTest"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="WYKONAJ TEST"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/backIntoMainViewApp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <TextView
+        android:id="@+id/AmslerTestText"
+        android:layout_width="384dp"
+        android:layout_height="179dp"
+        android:text="Zasłoń prawe oko a lewym patrz w centralny punkt siatki (biały kwadrat) z odległości około 30 cm. Nie odrywając oka
+oceń, czy wszystkie linie, które widzisz są liniami prostymi oraz czy wszystkie kwadraty mają taki sam wymiar."
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textColorLink="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/startAmslerTest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.965" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

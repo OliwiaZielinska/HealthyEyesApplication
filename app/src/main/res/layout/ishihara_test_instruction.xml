@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout"
+    tools:context=".app.ishiharaTest.IshiharaTestInstruction">
+
+    <TextView
+        android:id="@+id/ishiharaTestName"
+        android:layout_width="182dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="70dp"
+        android:text="TEST BARW - TEST ISHIHARA"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textColorLink="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.308" />
+
+    <Button
+        android:id="@+id/backIntoMainViewApp"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="POWRÓT"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.90999997" />
+
+    <Button
+        android:id="@+id/startIshiharaTest"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="WYKONAJ TEST"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/backIntoMainViewApp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <TextView
+        android:id="@+id/ishiharaTestText"
+        android:layout_width="384dp"
+        android:layout_height="179dp"
+        android:text="Odsuń ekran telefonu na około 75 cm, mniej więcej to odległość na wyciągnięcie ręki.
+Następnie dla każdej tablicy wpisz w wyznaczonym miejscu widziane na niej cyfry lub gdy nie jesteś w stanie ich dostrzec wpisz 0 i kliknij SPRAWDŹ."
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textColorLink="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/startIshiharaTest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.965" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout"
+    tools:context=".ActivityMain">
+
+
+    <Button
+        android:id="@+id/logInButtonEnd"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="ZALOGUJ SIĘ"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.787" />
+
+    <Button
+        android:id="@+id/signUpButton1"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="230dp"
+        android:layout_marginBottom="25dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="ZAREJESTRUJ SIĘ"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/logInButtonEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/LayoutTextLogin2"
+        android:layout_width="315dp"
+        android:layout_height="107dp"
+        android:layout_marginTop="180dp"
+        android:text="Chcąc zaoszczędzić swój czas skorzystaj z możliwości przebadania wzroku w domu"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textColorLink="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/signUpButton1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.876" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

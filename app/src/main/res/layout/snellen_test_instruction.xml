@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout"
+    tools:context=".app.snellenTest.SnellenTestInstruction">
+
+    <TextView
+        android:id="@+id/SnellenTestName"
+        android:layout_width="313dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="90dp"
+        android:text="TEST OSTROŚCI WIDZENIA - TEST SNELLENA"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textColorLink="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.162" />
+
+    <TextView
+        android:id="@+id/SnellenTestText"
+        android:layout_width="324dp"
+        android:layout_height="147dp"
+        android:text="Zasłoń lepsze oko, a słabszym popatrz na wyświetlające się literki i je odczytaj. Następnie po przejściu 10 poziomów zasłoń badane oko i powtórz test na drugim."
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textColorLink="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/startSnellenTest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.697" />
+
+    <RadioGroup
+        android:id="@+id/eyeSelectionGroup"
+        android:layout_width="293dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="151dp"
+        android:orientation="horizontal"
+        android:outlineSpotShadowColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/startSnellenTest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/SnellenTestText"
+        app:layout_constraintVertical_bias="0.509">
+
+        <RadioButton
+            android:id="@+id/leftEyeRadio"
+            android:layout_width="154dp"
+            android:layout_height="46dp"
+            android:layout_marginBottom="80dp"
+            android:text="Lewe Oko"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/startSnellenTest"
+            app:layout_constraintEnd_toStartOf="@+id/rightEyeRadio"
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <RadioButton
+            android:id="@+id/rightEyeRadio"
+            android:layout_width="154dp"
+            android:layout_height="46dp"
+            android:layout_marginEnd="68dp"
+            android:layout_marginBottom="28dp"
+            android:text="Prawe Oko"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/startSnellenTest"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/startSnellenTest"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="WYKONAJ TEST"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/backIntoMainViewApp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <Button
+        android:id="@+id/backIntoMainViewApp"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="POWRÓT"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "929998609157",
+    "project_id": "healthyeyes-87e93",
+    "storage_bucket": "healthyeyes-87e93.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929998609157:android:7294991601327111f3f56c",
+        "android_client_info": {
+          "package_name": "com.example.healthyeyes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh3IFXZI4s_VKLglhvPQBrTDJ6EPYwOMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

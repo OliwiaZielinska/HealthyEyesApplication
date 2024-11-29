@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout"
+    tools:context=".Settings">
+
+    <TextView
+        android:id="@+id/infoSettingsTextView"
+        android:layout_width="376dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="160dp"
+        android:text="TUTAJ MOŻESZ ZMIENIĆ USTAWIENIA DOTYCZĄCE POSIADANYCH WAD WZROKU"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/changeSettingsQuestionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="CZY MASZ JAKĄŚ WADĘ WZROKU?"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/infoSettingsTextView" />
+
+    <Switch
+        android:id="@+id/settingsYesNoSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:checked="false"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:textOff="Nie"
+        android:textOn="Tak"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changeSettingsQuestionText" />
+
+    <TextView
+        android:id="@+id/settingsYesNoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsYesNoSwitch"
+        app:layout_constraintEnd_toStartOf="@+id/settingsYesNoSwitch"
+        app:layout_constraintHorizontal_bias="0.685"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/settingsYesNoSwitch"
+        app:layout_constraintVertical_bias="0.482" />
+
+    <TextView
+        android:id="@+id/editDefectiveSightText"
+        android:layout_width="364dp"
+        android:layout_height="26dp"
+        android:layout_marginBottom="195dp"
+        android:text="WPROWADŹ WADĘ WZROKU PONIŻEJ"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/saveChangesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsYesNoText"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <EditText
+        android:id="@+id/editDefectiveSightInput"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:hint="Wada wzroku"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editDefectiveSightText" />
+
+    <TextView
+        android:id="@+id/textChangePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="TU DOKONASZ ZMIANY HASŁA"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editDefectiveSightInput" />
+
+    <TextView
+        android:id="@+id/TextOldPasswordRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="20dp"
+        android:text="STARE HASŁO"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textChangePassword" />
+
+    <EditText
+        android:id="@+id/inputOldPasswordRegistration"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:hint="Stare hasło"
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toEndOf="@id/TextOldPasswordRegistration"
+        app:layout_constraintTop_toBottomOf="@id/textChangePassword" />
+
+    <TextView
+        android:id="@+id/TextPasswordRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="12dp"
+        android:text="NOWE HASŁO"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/TextPasswordRegistration2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputOldPasswordRegistration"
+        app:layout_constraintVertical_bias="0.298" />
+
+    <EditText
+        android:id="@+id/inputPasswordRegistration"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:hint="Nowe hasło"
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toEndOf="@id/TextPasswordRegistration"
+        app:layout_constraintTop_toBottomOf="@id/inputOldPasswordRegistration" />
+
+    <TextView
+        android:id="@+id/TextPasswordRegistration2"
+        android:layout_width="115dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="35dp"
+        android:text="POWTÓRZ NOWE HASŁO"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/saveChangesButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputPasswordRegistration"
+        app:layout_constraintVertical_bias="0.159" />
+
+    <EditText
+        android:id="@+id/inputPasswordRegistration2"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:hint="Powtórz nowe hasło"
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/deleteAccountButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.465"
+        app:layout_constraintStart_toEndOf="@id/TextPasswordRegistration2"
+        app:layout_constraintTop_toBottomOf="@id/inputPasswordRegistration"
+        app:layout_constraintVertical_bias="0.176" />
+
+    <Button
+        android:id="@+id/saveChangesButton"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="ZAPISZ ZMIANY"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/deleteAccountButton"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="USUŃ KONTO"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

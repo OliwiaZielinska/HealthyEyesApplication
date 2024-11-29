@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Healthy Eyes</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="snellen_result_text">Wynik dla lewego oka: %1$s\nWynik dla prawego oka: %2$s</string>
+    <string name="unknown">Nieznany</string>
+</resources>
