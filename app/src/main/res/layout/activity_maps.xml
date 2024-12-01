@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/blanklayout">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="341dp"
+        android:layout_height="537dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.639"
+        tools:context=".MapsActivity" />
+
+    <Spinner
+        android:id="@+id/typeSpinnerMaps"
+        android:layout_width="168dp"
+        android:layout_height="33dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="612dp"
+        android:background="#0FD0C5"
+        android:popupBackground="#0FD0C5"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/specialPlacesSearchButton"
+        android:layout_width="109dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="Szukaj"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <SeekBar
+        android:id="@+id/distanceSeekBar"
+        android:layout_width="196dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="575dp"
+        android:max="6"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.176"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/typeSpinnerMaps" />
+
+    <TextView
+        android:id="@+id/distanceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Odległość: 5 km"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/distanceSeekBar" />
+
+    <Button
+        android:id="@+id/returnFromMapsButton"
+        android:layout_width="131dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="580dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="POWRÓT"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/navigationButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/map" />
+
+    <Button
+        android:id="@+id/navigationButton"
+        android:layout_width="131dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="580dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="NAWIGUJ"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/map" />
+</androidx.constraintlayout.widget.ConstraintLayout>

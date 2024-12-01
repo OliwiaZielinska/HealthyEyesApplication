@@ -9,7 +9,7 @@
     android:background="@drawable/layout">
 
     <TextView
-        android:id="@+id/snellenRow"
+        android:id="@+id/snellenTestHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="E T Z L P"

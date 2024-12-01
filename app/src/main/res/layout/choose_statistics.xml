@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout"
+    tools:context=".app.statistic.ChooseStatistic">
+
+    <TextView
+        android:id="@+id/chooseStatisticsText"
+        android:layout_width="308dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="250dp"
+        android:text="STATYSTYKĘ, KTÓREGO TEST CHCIAŁBYŚ ZOBACZYĆ:"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textColorLink="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/snellenButton"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="SNELLENA"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooseStatisticsText" />
+
+    <Button
+        android:id="@+id/amsleraButton"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="AMSLERA"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/snellenButton" />
+
+    <Button
+        android:id="@+id/ishiharyButton"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="ISHIHARY"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/amsleraButton" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="68dp"
+        android:backgroundTint="#0FD0C5"
+        android:text="POWRÓT"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ishiharyButton" />
+</androidx.constraintlayout.widget.ConstraintLayout>

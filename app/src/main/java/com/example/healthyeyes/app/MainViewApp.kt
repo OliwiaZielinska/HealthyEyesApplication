@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.healthyeyes.app.amslerTest.AmslerTestInstruction
 import com.example.healthyeyes.app.ishiharaTest.IshiharaTestInstruction
 import com.example.healthyeyes.app.snellenTest.SnellenTestInstruction
+import com.example.healthyeyes.app.statistic.ChooseStatistic
 
 /**
  * A class that allows the user to perform various eye tests and manage settings and log out of
@@ -30,6 +31,7 @@ class MainViewApp : AppCompatActivity() {
         val resultsButton = findViewById<Button>(R.id.resultsButton)
         val settingButton = findViewById<Button>(R.id.settingButton)
         val logOutButton = findViewById<Button>(R.id.logOutButton)
+        val mapsButton = findViewById<Button>(R.id.mapsButton)
 
         logOutButton.setOnClickListener {
             val intent = Intent(this, MainActivityLogin::class.java)
@@ -60,6 +62,17 @@ class MainViewApp : AppCompatActivity() {
             intent.putExtra("userID", userID)
             startActivity(intent)
             finish()
+        }
+        resultsButton.setOnClickListener {
+            val intent = Intent(this, ChooseStatistic::class.java)
+            intent.putExtra("userID", userID)
+            startActivity(intent)
+            finish()
+        }
+        mapsButton.setOnClickListener {
+            val intent = Intent(this, MapsActivity::class.java)
+            intent.putExtra("userID", userID)
+            startActivity(intent)
         }
     }
 }

@@ -24,7 +24,7 @@ import kotlin.random.Random
  * The class allows the user to perform the Snellen test, which is used to assess visual acuity.
  */
 class SnellenTest : AppCompatActivity() {
-    private lateinit var snellenRow: TextView
+    private lateinit var snellenTestHeader: TextView
     private lateinit var userInput: EditText
     private lateinit var checkButton: Button
     private lateinit var resultTextView: TextView
@@ -39,16 +39,16 @@ class SnellenTest : AppCompatActivity() {
     private var leftEyeResult = ""
     private var userID = ""
     private val snellenScale = mapOf(
-        1 to "20/200",
-        2 to "20/100",
-        3 to "20/70",
-        4 to "20/50",
-        5 to "20/40",
-        6 to "20/30",
-        7 to "20/25",
-        8 to "20/20",
-        9 to "20/15",
-        10 to "20/10"
+        1 to "0.1",
+        2 to "0.2",
+        3 to "0.29",
+        4 to "0.4",
+        5 to "0.5",
+        6 to "0.67",
+        7 to "0.8",
+        8 to "1.0",
+        9 to "1.33",
+        10 to "2.0"
     )
 
     /**
@@ -62,7 +62,7 @@ class SnellenTest : AppCompatActivity() {
         setContentView(R.layout.snellen_test)
 
         userID = intent.getStringExtra("userID").toString()
-        snellenRow = findViewById(R.id.snellenRow)
+        snellenTestHeader = findViewById(R.id.snellenTestHeader)
         userInput = findViewById(R.id.userInput)
         checkButton = findViewById(R.id.checkButton)
         resultTextView = findViewById(R.id.resultText)
@@ -110,8 +110,8 @@ class SnellenTest : AppCompatActivity() {
      */
     private fun updateRow() {
         val textSize = 48 - (level * 4)
-        snellenRow.textSize = textSize.toFloat()
-        snellenRow.text = generateRow(5)
+        snellenTestHeader.textSize = textSize.toFloat()
+        snellenTestHeader.text = generateRow(5)
     }
 
     /**
@@ -119,7 +119,7 @@ class SnellenTest : AppCompatActivity() {
      * allow it to move to the next level of the test.
      */
     private fun processAnswer() {
-        val correctAnswer = snellenRow.text.toString().replace(" ", "").uppercase()
+        val correctAnswer = snellenTestHeader.text.toString().replace(" ", "").uppercase()
         val userAnswer = userInput.text.toString().replace(" ", "").uppercase()
 
         if (userAnswer.isEmpty()) {
