@@ -75,22 +75,24 @@ class MainActivityRegistration2 : BaseActivity() {
      * @return True if the data entered is valid and False if it is not.
      */
     private fun validateRegisterDetails(): Boolean {
+        val passwordText = password.text.toString().trim()
         return when {
             TextUtils.isEmpty(email.text.toString().trim()) -> {
                 showErrorSnackBar("Proszę wprowadzić adres email", true)
                 false
             }
-
-            TextUtils.isEmpty(password.text.toString().trim()) -> {
+            TextUtils.isEmpty(passwordText) -> {
                 showErrorSnackBar("Proszę wprowadzić hasło", true)
                 false
             }
-
+            passwordText.length < 6 -> {
+                showErrorSnackBar("Hasło musi mieć co najmniej 6 znaków", true)
+                false
+            }
             TextUtils.isEmpty(repeatedPassword.text.toString().trim()) -> {
                 showErrorSnackBar("Proszę powtórzyć hasło", true)
                 false
             }
-
             else -> true
         }
     }

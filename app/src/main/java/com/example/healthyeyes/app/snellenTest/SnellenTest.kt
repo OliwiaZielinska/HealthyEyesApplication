@@ -3,6 +3,7 @@ package com.example.healthyeyes.app.snellenTest
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -50,6 +51,8 @@ class SnellenTest : AppCompatActivity() {
         9 to "1.33",
         10 to "2.0"
     )
+    private lateinit var speakButton: Button
+    private val allowedLetters = listOf("C", "D", "E", "F", "L", "O", "P", "T", "Z")
 
     /**
      * Method for creating an activity to set the layout, initialise fields and buttons
@@ -70,13 +73,74 @@ class SnellenTest : AppCompatActivity() {
         currentEye = intent.getStringExtra("selectedEye") ?: "Lewe Oko"
         resultTextView.visibility = TextView.GONE
         backButton.visibility = Button.GONE
+        speakButton = findViewById(R.id.speakButton)
 
+        speakButton.setOnClickListener {
+            startSpeechRecognition()
+        }
         backButton.setOnClickListener {
             navigateToSnellenTestInstruction()
         }
         updateRow()
         checkButton.setOnClickListener {
             processAnswer()
+        }
+    }
+
+    /**
+     *Method used for speech recognition.
+     *
+     * @throws Exception If the device does not support speech recognition.
+     */
+    private fun startSpeechRecognition() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            putExtra(RecognizerIntent.EXTRA_PROMPT, "Wypowiedz litery, które widzisz")
+        }
+        try {
+            startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT)
+        } catch (e: Exception) {
+            Toast.makeText(this, "Rozpoznawanie mowy nie jest dostępne na tym urządzeniu.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    /**
+     * Object storing the constant values used in the class.
+     */
+    companion object {
+        const val REQUEST_CODE_SPEECH_INPUT = 100
+    }
+
+    /**
+     * Method to convert speech to text.
+     *
+     * @param requestCode The request code to identify the type of request (checked against
+     * `REQUEST_CODE_SPEECH_INPUT`).
+     * @param resultCode Result code to check if the operation was successful (checked with `RESULT_OK`).
+     * @param data Intent containing data from speech recognition.
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_SPEECH_INPUT && resultCode == RESULT_OK) {
+            val results = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val spokenText = results?.get(0)?.replace(" ", "")?.uppercase() ?: ""
+
+            if (spokenText.isNotEmpty()) {
+                val isInputValid = spokenText.all { it.toString() in allowedLetters }
+
+                if (isInputValid) {
+                    userInput.setText(spokenText)
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Rozpoznano niedozwolone znaki. Wypowiedz tylko litery z zestawu: ${allowedLetters.joinToString(", ")}.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            } else {
+                Toast.makeText(this, "Nie rozpoznano żadnego tekstu.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

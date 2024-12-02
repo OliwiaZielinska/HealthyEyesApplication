@@ -43,31 +43,26 @@ class MainViewApp : AppCompatActivity() {
             val intent = Intent(this, SnellenTestInstruction::class.java)
             intent.putExtra("userID", userID)
             startActivity(intent)
-            finish()
         }
         fieldOfViewButton.setOnClickListener {
             val intent = Intent(this, AmslerTestInstruction::class.java)
             intent.putExtra("userID", userID)
             startActivity(intent)
-            finish()
         }
         colorButton.setOnClickListener {
             val intent = Intent(this, IshiharaTestInstruction::class.java)
             intent.putExtra("userID", userID)
             startActivity(intent)
-            finish()
         }
         settingButton.setOnClickListener {
             val intent = Intent(this, Settings::class.java)
             intent.putExtra("userID", userID)
             startActivity(intent)
-            finish()
         }
         resultsButton.setOnClickListener {
             val intent = Intent(this, ChooseStatistic::class.java)
             intent.putExtra("userID", userID)
             startActivity(intent)
-            finish()
         }
         mapsButton.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)
