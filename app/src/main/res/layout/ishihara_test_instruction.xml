@@ -55,7 +55,7 @@
         android:id="@+id/ishiharaTestText"
         android:layout_width="384dp"
         android:layout_height="179dp"
-        android:text="Odsuń ekran telefonu na około 75 cm, mniej więcej to odległość na wyciągnięcie ręki.
+        android:text="Odsuń ekran telefonu na około 30 cm.
 Następnie dla każdej tablicy wpisz w wyznaczonym miejscu widziane na niej cyfry lub gdy nie jesteś w stanie ich dostrzec wpisz 0 i kliknij SPRAWDŹ."
         android:textAlignment="center"
         android:textColor="#000000"
