@@ -223,9 +223,9 @@ class SnellenRaports : AppCompatActivity() {
         val intent = Intent(this, AnalysisChat::class.java)
         val roundedavgLeftEye = String.format("%.2f", avgLeftEye)
         val roundedavgRightEye = String.format("%.2f", avgRightEye)
-        val question = "Czy otrzymane średnie wyniki po wykonaniu testu Snellena dla lewego oka:$roundedavgLeftEye oraz dla prawego oka: $roundedavgRightEye są prawidłowe?"
+        val question = "Czy wyniki testu Snellena zapisane jako wartości dziesiętne ($roundedavgLeftEye dla lewego oka i $roundedavgRightEye dla prawego oka) mieszczą się w normie i czy wymagają konsultacji z okulistą?"
         intent.putExtra("userID", userId)
-        intent.putExtra("question", "$question Czy może wskazują na konieczność skonsultowania się z okulistą w celu dokonania dokładniejszych badań?")
+        intent.putExtra("question", "$question Co oznaczają takie wartości w odniesieniu do standardowego wzroku 20/20?")
         startActivity(intent)
     }
 }

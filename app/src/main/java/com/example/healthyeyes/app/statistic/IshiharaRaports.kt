@@ -214,7 +214,7 @@ class IshiharaRaports : AppCompatActivity() {
     private fun navigateToAnalysis() {
         val intent = Intent(this, AnalysisChat::class.java)
         val roundedAverageResult = String.format("%.2f", averageResult)
-        val question = "Czy otrzymane średnie wyniki po wykonaniu testu Ishihary:$roundedAverageResult % są prawidłowe?"
+        val question = "Jak interpretować wynik testu Ishihara, jeśli użytkownik uzyskał $roundedAverageResult% poprawnych odpowiedzi?"
         intent.putExtra("userID", userId)
         intent.putExtra("question", "$question Czy może wskazują na konieczność skonsultowania się z okulistą w celu dokonania dokładniejszych badań?")
         startActivity(intent)
