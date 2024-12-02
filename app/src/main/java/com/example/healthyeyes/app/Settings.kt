@@ -73,68 +73,46 @@ class Settings : BaseActivity() {
      * the visual impairment, if any.
      */
     private fun saveChanges() {
-        val defectiveSight = editDefectiveSight.text.toString()
-        val yesOrNoSwitch = settingsYesNoSwitch.isChecked
-        val oldPassword = inputOldPassword.text.toString()
+        val oldPassword = hashPassword(inputOldPassword.text.toString())
         val newPassword = inputNewPassword.text.toString()
         val confirmNewPassword = inputConfirmNewPassword.text.toString()
-        val userId = FirebaseAuth.getInstance().currentUser!!.email
-
-        if (newPassword.isEmpty() && confirmNewPassword.isEmpty() && oldPassword.isEmpty()) {
-            val ref = db.collection("users").document(userId.toString())
-            ref.update("defectiveSight", defectiveSight)
-            ref.update("glasses", yesOrNoSwitch)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Informacja o wadzie wzroku została zaktualizowana", Toast.LENGTH_SHORT).show()
-                    navigateToMainViewApp()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Pojawił się błąd, spróbuj za chwilę", Toast.LENGTH_SHORT).show()
-                }
-            return
-        }
-
         if (newPassword.isEmpty() || confirmNewPassword.isEmpty()) {
-            Toast.makeText(this, "Pole do wpisania hasła nie może być puste", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Nowe hasło nie może być puste", Toast.LENGTH_SHORT).show()
             return
         }
-
         if (newPassword != confirmNewPassword) {
             Toast.makeText(this, "Nowe hasła nie są zgodne", Toast.LENGTH_SHORT).show()
             return
         }
-
+        val userId = FirebaseAuth.getInstance().currentUser!!.email
         db.collection("users").document(userId.toString()).get()
             .addOnSuccessListener { document ->
                 document.toObject(UserDatabase::class.java)?.let { currentUser ->
-                    val hashedOldPassword = hashPassword(oldPassword)
-
-                    if (currentUser.password == hashedOldPassword) {
-                        val hashedNewPassword = hashPassword(newPassword)
-
+                    if (currentUser.password == oldPassword) {
                         val user = FirebaseAuth.getInstance().currentUser
                         user?.updatePassword(newPassword)
                             ?.addOnSuccessListener {
+                                val hashedNewPassword = hashPassword(newPassword)
                                 currentUser.password = hashedNewPassword
                                 db.collection("users").document(userId.toString()).set(currentUser)
                                     .addOnSuccessListener {
                                         Toast.makeText(this, "Hasło zostało zmienione", Toast.LENGTH_SHORT).show()
                                         navigateToMainViewApp()
                                     }
-                                    .addOnFailureListener {
-                                        Toast.makeText(this, "Pojawił się błąd, spróbuj za chwilę", Toast.LENGTH_SHORT).show()
+                                    .addOnFailureListener { exception ->
+                                        Toast.makeText(this, "Błąd: ${exception.message}", Toast.LENGTH_SHORT).show()
                                     }
                             }
-                            ?.addOnFailureListener {
-                                Toast.makeText(this, "Pojawił się błąd, spróbuj za chwilę", Toast.LENGTH_SHORT).show()
+                            ?.addOnFailureListener { exception ->
+                                Toast.makeText(this, "Błąd zmiany hasła: ${exception.message}", Toast.LENGTH_SHORT).show()
                             }
                     } else {
-                        Toast.makeText(this, "Błędne stare hasło", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Niepoprawne stare hasło", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
-            .addOnFailureListener {
-                Toast.makeText(this, "Pojawił się błąd, spróbuj za chwilę", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Błąd pobierania danych użytkownika: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
 

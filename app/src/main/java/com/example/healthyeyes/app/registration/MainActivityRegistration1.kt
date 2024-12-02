@@ -1,8 +1,11 @@
 package com.example.healthyeyes.app.registration
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -42,12 +45,17 @@ class MainActivityRegistration1 : BaseActivity() {
         setYesNo = findViewById(R.id.setYesNoText)
         registrationButton = findViewById(R.id.signInButtonRegistration)
         defectiveSight = findViewById(R.id.defectiveSight)
-        val genderAdapter = ArrayAdapter.createFromResource(
+        val genderAdapter = object : ArrayAdapter<String>(
             this,
-            R.array.gender_array,
-            android.R.layout.simple_spinner_item
-        )
-        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            android.R.layout.simple_spinner_item,
+            resources.getStringArray(R.array.gender_array)
+        ) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getView(position, convertView, parent) as TextView
+                view.setTextColor(Color.BLACK)
+                return view
+            }
+        }
         sex.adapter = genderAdapter
         glasses.setOnCheckedChangeListener { _, isChecked ->
             setYesNo.text = if (isChecked) "Tak" else "Nie"
