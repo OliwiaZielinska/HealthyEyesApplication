@@ -29,7 +29,7 @@
         android:id="@+id/SnellenTestText"
         android:layout_width="324dp"
         android:layout_height="147dp"
-        android:text="Zasłoń lepsze oko, a słabszym popatrz na wyświetlające się literki i je odczytaj. Następnie po przejściu 10 poziomów zasłoń badane oko i powtórz test na drugim."
+        android:text="Zasłoń lepsze oko, a słabszym popatrz z odległości 20 cm na wyświetlające się litery i je odczytaj. Następnie po przejściu 10 poziomów zasłoń badane oko i powtórz test na drugim."
         android:textAlignment="center"
         android:textColor="#000000"
         android:textColorLink="#000000"

@@ -22,7 +22,8 @@ import java.util.Locale
 import kotlin.random.Random
 
 /**
- * The class allows the user to perform the Snellen test, which is used to assess visual acuity.
+ * Activity for conducting the Snellen test, which assesses visual acuity.
+ * The test involves displaying rows of letters and verifying user input for correctness.
  */
 class SnellenTest : AppCompatActivity() {
     private lateinit var snellenTestHeader: TextView
@@ -30,6 +31,7 @@ class SnellenTest : AppCompatActivity() {
     private lateinit var checkButton: Button
     private lateinit var resultTextView: TextView
     private lateinit var backButton: Button
+    private lateinit var speakButton: Button
     private var level = 1
     private var bestLevel = 0
     private var firstEyeResult = ""
@@ -39,26 +41,25 @@ class SnellenTest : AppCompatActivity() {
     private var rightEyeResult = ""
     private var leftEyeResult = ""
     private var userID = ""
+    private val allowedLetters = listOf("C", "D", "E", "F", "L", "O", "P", "T", "Z")
     private val snellenScale = mapOf(
         1 to "0.1",
         2 to "0.2",
-        3 to "0.29",
+        3 to "0.3",
         4 to "0.4",
         5 to "0.5",
-        6 to "0.67",
-        7 to "0.8",
-        8 to "1.0",
-        9 to "1.33",
-        10 to "2.0"
+        6 to "0.6",
+        7 to "0.7",
+        8 to "0.8",
+        9 to "0.9",
+        10 to "1.0"
     )
-    private lateinit var speakButton: Button
-    private val allowedLetters = listOf("C", "D", "E", "F", "L", "O", "P", "T", "Z")
 
     /**
-     * Method for creating an activity to set the layout, initialise fields and buttons
-     * and operate them.
+     * Initializes the activity and sets up listeners for buttons and other UI elements.
+     * Also prepares the first row of the Snellen test and notifies the user about the test distance.
      *
-     * @param savedInstanceState saved application status.
+     * @param savedInstanceState The saved state of the application.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,27 +71,170 @@ class SnellenTest : AppCompatActivity() {
         checkButton = findViewById(R.id.checkButton)
         resultTextView = findViewById(R.id.resultText)
         backButton = findViewById(R.id.snellenTestBackButton)
+        speakButton = findViewById(R.id.speakButton)
         currentEye = intent.getStringExtra("selectedEye") ?: "Lewe Oko"
+
         resultTextView.visibility = TextView.GONE
         backButton.visibility = Button.GONE
-        speakButton = findViewById(R.id.speakButton)
 
-        speakButton.setOnClickListener {
-            startSpeechRecognition()
-        }
-        backButton.setOnClickListener {
-            navigateToSnellenTestInstruction()
-        }
+        speakButton.setOnClickListener { startSpeechRecognition() }
+        backButton.setOnClickListener { navigateToSnellenTestInstruction() }
+        checkButton.setOnClickListener { processAnswer() }
+
         updateRow()
-        checkButton.setOnClickListener {
-            processAnswer()
+        Toast.makeText(this, "Trzymaj urządzenie w odległości 30 cm od oczu.", Toast.LENGTH_LONG).show()
+    }
+
+    /**
+     * Updates the test display by setting the text size and content of the Snellen row.
+     */
+    private fun updateRow() {
+        val textSize = calculateTextSizeForSnellen(level, resources.displayMetrics.density)
+        snellenTestHeader.textSize = textSize
+        snellenTestHeader.text = generateRow(5)
+    }
+
+    /**
+     * Calculates the appropriate text size for a given Snellen test level.
+     *
+     * @param level The current test level.
+     * @param screenDensity The screen density of the device.
+     * @return The calculated text size in pixels.
+     */
+    private fun calculateTextSizeForSnellen(level: Int, screenDensity: Float): Float {
+        val physicalSizeInCm = when (level) {
+            1 -> 8.7f
+            2 -> 6.5f
+            3 -> 4.8f
+            4 -> 3.7f
+            5 -> 2.9f
+            6 -> 2.3f
+            7 -> 1.8f
+            8 -> 1.4f
+            9 -> 1.1f
+            10 -> 0.8f
+            else -> 1.0f
+        }
+        return physicalSizeInCm * screenDensity * (30f / 25.4f)
+    }
+
+    /**
+     * Generates a random row of letters for the test.
+     *
+     * @param lettersCount The number of letters to include in the row.
+     * @return A string of random letters.
+     */
+    private fun generateRow(lettersCount: Int): String {
+        return (1..lettersCount)
+            .map { allowedLetters[Random.nextInt(allowedLetters.size)] }
+            .joinToString(" ")
+    }
+
+    /**
+     * Processes the user’s input and provides feedback on whether the answer is correct.
+     */
+    private fun processAnswer() {
+        val correctAnswer = snellenTestHeader.text.toString().replace(" ", "").uppercase()
+        val userAnswer = userInput.text.toString().replace(" ", "").uppercase()
+
+        if (userAnswer.isEmpty()) {
+            Toast.makeText(this, "Proszę wpisać odpowiedź!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (correctAnswer == userAnswer) {
+            Toast.makeText(this, "Poprawna odpowiedź!", Toast.LENGTH_SHORT).show()
+            if (level > bestLevel) bestLevel = level
+        } else {
+            Toast.makeText(this, "Niepoprawna odpowiedź. Spróbuj jeszcze raz!", Toast.LENGTH_SHORT).show()
+            userInput.text.clear()
+        }
+        nextLevel()
+    }
+
+    /**
+     * Advances the test to the next level or saves the results if the test is complete.
+     */
+    private fun nextLevel() {
+        if (level < 10) {
+            level++
+            updateRow()
+            userInput.text.clear()
+        } else {
+            saveResult()
         }
     }
 
     /**
-     *Method used for speech recognition.
-     *
-     * @throws Exception If the device does not support speech recognition.
+     * Saves the result of the current test for the left or right eye and prepares for the next eye if needed.
+     */
+    private fun saveResult() {
+        val snellenResult = snellenScale[bestLevel] ?: "Nieznany"
+        if (!isFirstEyeTestComplete) {
+            firstEyeResult = snellenResult
+            if (currentEye == "Lewe Oko") leftEyeResult = snellenResult else rightEyeResult = snellenResult
+            isFirstEyeTestComplete = true
+            resetTestForSecondEye()
+        } else {
+            secondEyeResult = snellenResult
+            if (currentEye == "Lewe Oko") leftEyeResult = snellenResult else rightEyeResult = snellenResult
+            showFinalResults()
+        }
+    }
+
+    /**
+     * Resets the test for the second eye.
+     */
+    private fun resetTestForSecondEye() {
+        currentEye = if (currentEye == "Lewe Oko") "Prawe Oko" else "Lewe Oko"
+        level = 1
+        bestLevel = 0
+        userInput.text.clear()
+        updateRow()
+        Toast.makeText(this, "Pora zbadać $currentEye. Zasłoń drugie oko.", Toast.LENGTH_LONG).show()
+    }
+
+    /**
+     * Displays the final results of the Snellen test for both eyes.
+     */
+    private fun showFinalResults() {
+        val leftEyeText = leftEyeResult.ifEmpty { getString(R.string.unknown) }
+        val rightEyeText = rightEyeResult.ifEmpty { getString(R.string.unknown) }
+        resultTextView.text = getString(R.string.snellen_result_text, leftEyeText, rightEyeText)
+        resultTextView.visibility = TextView.VISIBLE
+        checkButton.isEnabled = false
+        backButton.visibility = Button.VISIBLE
+        saveResultToDatabase()
+    }
+
+    /**
+     * Saves the Snellen test results to the Firestore database.
+     */
+    private fun saveResultToDatabase() {
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+        val snellenDatabase = SnellenDatabase(userID, currentDate, currentTime, leftEyeResult, rightEyeResult)
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val collectionRef = FirebaseFirestore.getInstance().collection("snellenTest")
+            collectionRef.document().set(snellenDatabase)
+                .addOnSuccessListener { Log.d(ContentValues.TAG, "Wynik zapisany") }
+                .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Błąd zapisu", e) }
+        }
+    }
+
+    /**
+     * Navigates back to the Snellen test instruction screen.
+     */
+    private fun navigateToSnellenTestInstruction() {
+        val intent = Intent(this, SnellenTestInstruction::class.java)
+        intent.putExtra("userID", userID)
+        startActivity(intent)
+        finish()
+    }
+
+    /**
+     * Starts the speech recognition process to capture the user’s spoken input.
      */
     private fun startSpeechRecognition() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
@@ -106,19 +250,11 @@ class SnellenTest : AppCompatActivity() {
     }
 
     /**
-     * Object storing the constant values used in the class.
-     */
-    companion object {
-        const val REQUEST_CODE_SPEECH_INPUT = 100
-    }
-
-    /**
-     * Method to convert speech to text.
+     * Handles the result from the speech recognition activity.
      *
-     * @param requestCode The request code to identify the type of request (checked against
-     * `REQUEST_CODE_SPEECH_INPUT`).
-     * @param resultCode Result code to check if the operation was successful (checked with `RESULT_OK`).
-     * @param data Intent containing data from speech recognition.
+     * @param requestCode The request code for the activity.
+     * @param resultCode The result code from the activity.
+     * @param data The intent data returned by the activity.
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -128,162 +264,15 @@ class SnellenTest : AppCompatActivity() {
 
             if (spokenText.isNotEmpty()) {
                 val isInputValid = spokenText.all { it.toString() in allowedLetters }
-
-                if (isInputValid) {
-                    userInput.setText(spokenText)
-                } else {
-                    Toast.makeText(
-                        this,
-                        "Rozpoznano niedozwolone znaki. Wypowiedz tylko litery z zestawu: ${allowedLetters.joinToString(", ")}.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+                if (isInputValid) userInput.setText(spokenText)
+                else Toast.makeText(this, "Niedozwolone znaki.", Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "Nie rozpoznano żadnego tekstu.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Nie rozpoznano tekstu.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    /**
-     * A function that takes the user to the SnellenTestInstruction class when he or she
-     * presses the ‘POWRÓT’ button .
-     */
-    private fun navigateToSnellenTestInstruction() {
-        val intent = Intent(this, SnellenTestInstruction::class.java)
-        intent.putExtra("userID", userID)
-        startActivity(intent)
-        finish()
-    }
-
-    /**
-     * * Function that generates a random set of letters based on the number of letters required
-     * for the test level.
-     *
-     * @param lettersCount Number of letters in the generated row.
-     * @return The string representing the random row of letters.
-     */
-    private fun generateRow(lettersCount: Int): String {
-        val snellenLetters = listOf("C", "D", "E", "F", "L", "O", "P", "T", "Z")
-        return (1..lettersCount)
-            .map { snellenLetters[Random.nextInt(snellenLetters.size)] }
-            .joinToString(" ")
-    }
-
-    /**
-     * Function that updates the row of letters on the screen depending on the level of the test.
-     */
-    private fun updateRow() {
-        val textSize = 48 - (level * 4)
-        snellenTestHeader.textSize = textSize.toFloat()
-        snellenTestHeader.text = generateRow(5)
-    }
-
-    /**
-     * A function that processes the user's response, in order to check its correctness and
-     * allow it to move to the next level of the test.
-     */
-    private fun processAnswer() {
-        val correctAnswer = snellenTestHeader.text.toString().replace(" ", "").uppercase()
-        val userAnswer = userInput.text.toString().replace(" ", "").uppercase()
-
-        if (userAnswer.isEmpty()) {
-            Toast.makeText(this, "Proszę wpisać odpowiedź!", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (correctAnswer == userAnswer) {
-            Toast.makeText(this, "Poprawna odpowiedź!", Toast.LENGTH_SHORT).show()
-            if (level > bestLevel) {
-                bestLevel = level
-            }
-        } else {
-            Toast.makeText(this, "Niepoprawna odpowiedź, przechodzimy dalej.", Toast.LENGTH_SHORT).show()
-        }
-        nextLevel()
-    }
-
-    /**
-     * Function to move to the next level of the test or to save the result in the database.
-     */
-    private fun nextLevel() {
-        if (level < 10) {
-            level++
-            updateRow()
-            userInput.text.clear()
-        } else {
-            saveResult()
-        }
-    }
-
-    /**
-     * Function used to save the test result.
-     */
-    private fun saveResult() {
-        val snellenResult = snellenScale[bestLevel] ?: "Nieznany"
-
-        if (!isFirstEyeTestComplete) {
-            firstEyeResult = snellenResult
-            if (currentEye == "Lewe Oko") {
-                leftEyeResult = snellenResult
-            } else if (currentEye == "Prawe Oko") {
-                rightEyeResult = snellenResult
-            }
-            Toast.makeText(this, "Wynik dla pierwszego oka ($currentEye): $firstEyeResult", Toast.LENGTH_LONG).show()
-            isFirstEyeTestComplete = true
-            resetTestForSecondEye()
-        } else {
-            secondEyeResult = snellenResult
-            Toast.makeText(this, "Wynik dla drugiego oka ($currentEye): $secondEyeResult", Toast.LENGTH_LONG).show()
-            if (currentEye == "Lewe Oko") {
-                leftEyeResult = snellenResult
-            } else if (currentEye == "Prawe Oko") {
-                rightEyeResult = snellenResult
-            }
-            showFinalResults()
-        }
-    }
-
-    /**
-     * Function to reset the test status for the second eye to start from level one.
-     */
-    private fun resetTestForSecondEye() {
-        currentEye = if (currentEye == "Lewe Oko") "Prawe Oko" else "Lewe Oko"
-        level = 1
-        bestLevel = 0
-        userInput.text.clear()
-        Toast.makeText(this, "Pora zbadać $currentEye, w związku z tym zasłoń badaną dotychczas gałkę oczną.", Toast.LENGTH_LONG).show()
-        updateRow()
-    }
-
-    /**
-     * Function to display the final results for both eyes and saves them in the database.
-     */
-    private fun showFinalResults() {
-        val leftEyeText = leftEyeResult.ifEmpty { getString(R.string.unknown) }
-        val rightEyeText = rightEyeResult.ifEmpty { getString(R.string.unknown) }
-        resultTextView.text = getString(R.string.snellen_result_text, leftEyeText, rightEyeText)
-        resultTextView.visibility = TextView.VISIBLE
-        checkButton.isEnabled = false
-        backButton.visibility = Button.VISIBLE
-        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        val currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
-        val snellenDatabase = SnellenDatabase(
-            userID,
-            currentDate,
-            currentTime,
-            leftEyeResult,
-            rightEyeResult,
-        )
-        GlobalScope.launch(Dispatchers.Main) {
-            val collectionRef = FirebaseFirestore.getInstance().collection("snellenTest")
-            val documentRef = collectionRef.document()
-            documentRef.set(snellenDatabase)
-                .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "Dokument dodany z ID: ${documentRef.id}")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(ContentValues.TAG, "Wystąpił błąd", e)
-                }
-        }
+    companion object {
+        const val REQUEST_CODE_SPEECH_INPUT = 100
     }
 }
